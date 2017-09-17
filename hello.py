@@ -5,6 +5,12 @@ Based on the tutorial at
 https://www.tensorflow.org/get_started/get_started
 """
 
+import os
+# TODO provision a properly optimized version of TF -- I've been getting
+# W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+# and ditto for SSE4.2, AVX, AVX2, FMA.
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 import tensorflow as tf
 
 a = tf.constant(2.0)
