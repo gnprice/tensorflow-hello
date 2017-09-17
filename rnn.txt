@@ -3,11 +3,30 @@ https://www.tensorflow.org/tutorials/recurrent
 .
 
 time python tf-models/tutorials/rnn/ptb/ptb_word_lm.py \
-  --data_path=ptb-data/ --model=test --num_gpus=0 --save_path=ptb-model
+  --data_path=ptb-data/ --model=small --save_path=ptb-model/small
 
-On CPU, with the generic wheel (not compiled for SSE etc.), even this
-tiny test model takes 5m31s wall-clock on brown-dwarf, 17m06s total
-CPU time, to train.
+=== On GPU
+
+Running on a GeForce GTX 1080.  Takes 1m9s for test, 4m47s for small.
+The speed figures printed are about 43k wps for test, 52k wps for small;
+so for test, ~14x faster than brown-dwarf CPU.
+
+Training the large model, `nvidia-smi` shows 95-98% GPU-Util, so we're
+making good use of that, though only using 50% CPU (of one core).
+That runs about 4.9k wps.
+
+To make space for interactive desktop use, we should configure
+`per_process_gpu_memory_fraction` to 0.9 or 0.8. See
+https://www.tensorflow.org/tutorials/using_gpu#allowing_gpu_memory_growth
+
+
+=== On CPU
+
+Requires --num_gpus=0 .
+
+On CPU, with the generic wheel (not compiled for SSE etc.), even the
+tiny test model (--model=test) takes 5m31s wall-clock on brown-dwarf,
+17m06s total CPU time, to train.
 
 ... Then after all the work of building TF from source to get
 `-march=native`, and even Intel's fancy MKL optimizations specifically
