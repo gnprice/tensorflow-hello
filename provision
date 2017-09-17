@@ -1,0 +1,23 @@
+#!/bin/bash
+
+die () { echo "$@" >&2; exit 1; }
+
+# From https://www.tensorflow.org/install/install_linux#InstallingVirtualenv .
+
+sudo apt install python3-pip python3-dev python-virtualenv
+
+[ -d venv ] || virtualenv --system-site-packages -p python3 venv
+
+. venv/bin/activate
+
+pip install -U pip
+
+pip install -U -r requirements.txt
+
+cat <<EOF
+Provision complete!
+
+To use:
+
+  . venv/bin/activate
+EOF
