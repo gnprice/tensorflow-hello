@@ -21,12 +21,22 @@ model = a * x + b
 y = tf.placeholder(tf.float32)
 loss = tf.reduce_sum(tf.square(model - y))
 
+data = {x: [1, 2, 3, 4], y: [-1, 1, 3, 5]}
+
 sess = tf.Session()
 init = tf.global_variables_initializer()
 sess.run(init)
 
-print(sess.run(loss, {x: [1, 2, 3, 4], y: [-1, 1, 3, 5]}))
+print("Initial:", sess.run(loss, data))
 
 fixb = tf.assign(b, [-3])
 sess.run(fixb)
-print(sess.run(loss, {x: [1, 2, 3, 4], y: [-1, 1, 3, 5]}))
+print("Cheating:", sess.run(loss, data))
+sess.run(init)
+
+optimizer = tf.train.GradientDescentOptimizer(0.01)
+train = optimizer.minimize(loss)
+for i in range(1000):
+    sess.run(train, data)
+b_tr, loss_tr = sess.run([b, loss], data)
+print("Training: b %s, loss %s" % (b_tr, loss_tr))
