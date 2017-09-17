@@ -1,1 +1,18 @@
 tensorflow
+ipython
+
+## Didn't quite get this working:
+# bpython
+## Needed --upgrade --force-reinstall to get it to install at all,
+## since exists in system dist-packages.  Then `import tensorflow`
+## gave
+##     File "[...]/venv/lib/python3.5/site-packages/bpython/curtsiesfrontend/repl.py", line 242, in load_module
+##       module = self.loader.load_module(name)
+##     File "[...]/venv/lib/python3.5/site-packages/tensorflow/core/framework/graph_pb2.py", line 6, in <module>
+##       from google.protobuf import descriptor as _descriptor
+##   ImportError: No module named 'google'
+##
+## and `import google` agreed, even though `ipython` finds it fine
+## in `.../venv/lib/python3.5/site-packages/`, which is on sys.path.
+## There is no __init__.py -- perhaps bpython's custom import logic
+## (evident in the traceback) is getting confused by that?
