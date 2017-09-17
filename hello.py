@@ -1,17 +1,26 @@
 #!/usr/bin/env python
 
 """
-From the tutorial at
+Based on the tutorial at
 https://www.tensorflow.org/get_started/get_started
 """
 
 import tensorflow as tf
 
-node1 = tf.constant(3.0, dtype=tf.float32)
-node2 = tf.constant(4.0)  # implicitly also float32
-node3 = tf.add(node1, node2)  # or `node1 + node2` as a shortcut
+a = tf.constant(2.0)
+x = tf.placeholder(tf.float32)
+b = tf.Variable([-.3])
+model = a * x + b
+
+y = tf.placeholder(tf.float32)
+loss = tf.reduce_sum(tf.square(model - y))
 
 sess = tf.Session()
+init = tf.global_variables_initializer()
+sess.run(init)
 
-print("node3:", node3)
-print("sess.run(node3):", sess.run(node3))
+print(sess.run(loss, {x: [1, 2, 3, 4], y: [-1, 1, 3, 5]}))
+
+fixb = tf.assign(b, [-3])
+sess.run(fixb)
+print(sess.run(loss, {x: [1, 2, 3, 4], y: [-1, 1, 3, 5]}))
