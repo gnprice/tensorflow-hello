@@ -5,12 +5,6 @@ Based on the tutorial at
 https://www.tensorflow.org/get_started/get_started
 """
 
-import os
-# TODO provision a properly optimized version of TF -- I've been getting
-# W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
-# and ditto for SSE4.2, AVX, AVX2, FMA.
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 import tensorflow as tf
 
 ## Graph
@@ -57,8 +51,8 @@ for i in range(1000):
 b_tr, loss_tr = sess.run([b, loss], data)
 print("Training: b %s, loss %s" % (b_tr, loss_tr))
 
-print("""Now try:
+print("""
+Now try:
   tensorboard --logdir=log
-
 (You might want to remove data from any previous runs.)
 """)

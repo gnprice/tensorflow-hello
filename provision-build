@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Follows `provision`.
+# From https://www.tensorflow.org/install/install_sources
+# and https://docs.bazel.build/versions/master/install-ubuntu.html
+
+echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+sudo apt update
+
+sudo apt install python3-wheel python3-numpy openjdk-8-jdk bazel
+
+cat <<EOF
+Now:
+1. clone https://github.com/tensorflow/tensorflow
+2. there, `./configure` (perhaps after `git tag` and checking out a release)
+3. say yes to MKL, no to other features
+4. continue from https://www.tensorflow.org/install/install_sources#build_the_pip_package
+EOF
+
+# The `bazel build` takes 45m on brown-dwarf.
+# The steps after it are fast, though `pip` may need `-U --force-reinstall`.
+
+# Alternatively: Intel provides wheels with their MKL optimizations.
+# https://software.intel.com/en-us/articles/tensorflow-optimizations-on-modern-intel-architecture
