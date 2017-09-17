@@ -9,3 +9,32 @@ On CPU, with the generic wheel (not compiled for SSE etc.), even this
 tiny test model takes 5m31s wall-clock on brown-dwarf, 17m06s total
 CPU time, to train.
 
+... Then after all the work of building TF from source to get
+`-march=native`, and even Intel's fancy MKL optimizations specifically
+for TensorFlow, the resulting TF runs no faster.  Confirmed that when
+installing the wheel into a fresh venv.
+
+I guess I'm still doing better than this example in a book:
+https://books.google.com/books?id=rsyqDQAAQBAJ&pg=PA149&lpg=PA149&dq=tensorflow+ptb+tutorial+speed&source=bl&ots=7O1R36T4um&sig=DHI9aONtKloo9YR85_lCuExIV2U&hl=en&sa=X&ved=0ahUKEwjav9Xa3KvWAhWIw1QKHT1jD20Q6AEISzAG#v=onepage&q=tensorflow%20ptb%20tutorial%20speed&f=false
+400-450 wps.  I'm at 3000-3200.
+
+
+Some discussion:
+https://www.reddit.com/r/MachineLearning/comments/66rriz/d_rnns_are_much_faster_in_pytorch_than_tensorflow/
+That's on GPU, so not directly comparable; and the slowdown is about 2.5x.
+
+> Thanks! I think ptb_word_lm is meant more for tutorial purposes
+  (illustrating how the problem works) and not as a good fast example
+  for RNNs :(. I'll try to find time (or someone else) to get a
+  version of that code running in a way that is more idiomatic to how
+  we use it in practice, and will let you know when I do.
+
+> Great! I do know if you use the lstm cudnn wrapper for TensorFlow it
+  will go much faster. That is probably the best way to do things for
+  right now.
+
+but
+
+> [... various issues ...] Overall cuDNN support for RNNs seems like
+  an afterthought in TF.
+
