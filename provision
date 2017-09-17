@@ -14,6 +14,14 @@ pip install -U pip
 
 pip install -U -r requirements.txt
 
+[ -d tf-models ] || \
+    git clone https://github.com/tensorflow/models tf-models
+[ -d ptb-data ] || {
+    mkdir ptb-data
+    curl http://www.fit.vutbr.cz/~imikolov/rnnlm/simple-examples.tgz \
+        | tar -C ptb-data --strip-components=3 -x ./simple-examples/data/
+}
+
 cat <<EOF
 Provision complete!
 

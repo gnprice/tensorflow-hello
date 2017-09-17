@@ -1,2 +1,5 @@
 /venv
 /log
+/tf-models
+/ptb-model
+/ptb-data

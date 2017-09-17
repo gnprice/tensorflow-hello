@@ -1,0 +1,11 @@
+Based on the tutorial at
+https://www.tensorflow.org/tutorials/recurrent
+.
+
+time python tf-models/tutorials/rnn/ptb/ptb_word_lm.py \
+  --data_path=ptb-data/ --model=test --num_gpus=0 --save_path=ptb-model
+
+On CPU, with the generic wheel (not compiled for SSE etc.), even this
+tiny test model takes 5m31s wall-clock on brown-dwarf, 17m06s total
+CPU time, to train.
+
